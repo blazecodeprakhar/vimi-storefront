@@ -2900,3 +2900,157 @@ html, body {
     font-size: 0.75rem !important;
   }
 }
+
+/* ==========================================================================
+   LOCKED STICKY NAVIGATION BAR (LOCKED ON SCROLL FOR PHONE & PC USERS)
+   ========================================================================== */
+.site-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 9999 !important;
+  background: rgba(5, 5, 5, 0.94) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.85) !important;
+  transition: transform 0.3s ease, background-color 0.3s ease !important;
+}
+
+.site-header.header-scrolled {
+  background: rgba(0, 0, 0, 0.98) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Page body offset for fixed locked header */
+body {
+  padding-top: 64px !important;
+}
+
+/* ==========================================================================
+   BUYING WINDOW MODAL MOBILE UI FIXES (ZERO HORIZONTAL SCROLL)
+   ========================================================================== */
+.buying-window-container {
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.buying-window-body {
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+.buying-window-info {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.buying-window-sizes {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 6px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.bw-size-btn {
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 10px 2px !important;
+  text-align: center !important;
+  font-size: 0.82rem !important;
+}
+
+.bw-checkout-btn,
+.bw-buy-now-btn {
+  white-space: normal !important;
+  text-align: center !important;
+  line-height: 1.25 !important;
+  padding: 13px 10px !important;
+  font-size: 0.82rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 56px !important;
+  }
+  .header-container {
+    height: 56px !important;
+    padding: 0 14px !important;
+  }
+  .header-brand-logo-img {
+    height: 28px !important;
+  }
+
+  /* Buying Window Modal Responsive Fit */
+  .buying-window-modal {
+    padding: 10px !important;
+    align-items: flex-end !important; /* Bottom-sheet luxury feel on mobile */
+  }
+  .buying-window-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    border-radius: 16px 16px 0 0 !important;
+    margin: 0 !important;
+  }
+  .buying-window-body {
+    padding: 16px 14px 24px !important;
+    gap: 14px !important;
+    grid-template-columns: 1fr !important;
+  }
+  .buying-window-media {
+    max-height: 220px !important;
+  }
+  .buying-window-img {
+    max-height: 220px !important;
+    object-fit: cover !important;
+  }
+  .buying-window-title {
+    font-size: 1.15rem !important;
+    line-height: 1.25 !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  .buying-window-actions {
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  .bw-qty-box {
+    width: 100% !important;
+    justify-content: space-between !important;
+    height: 42px !important;
+  }
+  .bw-add-btn {
+    width: 100% !important;
+    height: 44px !important;
+    font-size: 0.82rem !important;
+  }
+
+  /* Filter Tabs Horizontal Swipe on Mobile */
+  .collection-filter-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 8px !important;
+    padding-bottom: 8px !important;
+    margin-top: 16px !important;
+    scrollbar-width: none !important;
+  }
+  .collection-filter-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+  .filter-tab {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 0.72rem !important;
+    padding: 8px 16px !important;
+  }
+}

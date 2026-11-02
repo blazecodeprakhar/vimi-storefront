@@ -419,3 +419,15 @@ window.showVimiToast = function(message) {
     toast.classList.remove('is-active');
   }, 3200);
 };
+
+// Locked Navigation Bar Scroll Effect
+window.addEventListener('scroll', () => {
+  const header = document.querySelector('.site-header');
+  if (header) {
+    if (window.scrollY > 15) {
+      header.classList.add('header-scrolled');
+    } else {
+      header.classList.remove('header-scrolled');
+    }
+  }
+}, { passive: true });
