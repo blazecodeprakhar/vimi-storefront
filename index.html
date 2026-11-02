@@ -8,6 +8,193 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/base.css">
+  <style id="vimi-critical-pc-and-mobile-overrides">
+    /* GUARANTEED ZERO CACHE DELAY FOR PC 4-CARD GRID & LOCKED NAV */
+    html, body {
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      position: relative !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    body {
+      padding-top: 64px !important;
+    }
+
+    /* LOCKED NAVIGATION BAR ON SCROLL */
+    .site-header {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      z-index: 99999 !important;
+      background: rgba(5, 5, 5, 0.96) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.9) !important;
+    }
+
+    /* PC USERS: ALWAYS 4 CARDS PER ROW */
+    @media (min-width: 768px) {
+      .products-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 18px !important;
+        width: 100% !important;
+      }
+    }
+
+    /* PHONE USERS: 2 CARDS PER ROW, ZERO HORIZONTAL SCROLL */
+    @media (max-width: 767px) {
+      body {
+        padding-top: 56px !important;
+      }
+      .header-container {
+        height: 56px !important;
+        padding: 0 12px !important;
+      }
+      .header-brand-logo-img {
+        height: 28px !important;
+      }
+      .products-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        width: 100% !important;
+      }
+      .product-card {
+        border-radius: 8px !important;
+      }
+      .product-card__title a {
+        font-size: 0.78rem !important;
+        line-height: 1.22 !important;
+      }
+      .price-item--regular {
+        font-size: 0.95rem !important;
+      }
+      .price-item--compare {
+        font-size: 0.75rem !important;
+      }
+      .size-pill {
+        padding: 2px 5px !important;
+        font-size: 0.65rem !important;
+      }
+      .collection-filter-tabs {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 8px !important;
+        padding-bottom: 8px !important;
+        margin-top: 16px !important;
+        scrollbar-width: none !important;
+      }
+      .collection-filter-tabs::-webkit-scrollbar {
+        display: none !important;
+      }
+      .filter-tab {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        font-size: 0.72rem !important;
+        padding: 8px 16px !important;
+      }
+
+      /* Buying Window Modal Mobile Full-Fit */
+      .buying-window-modal {
+        padding: 8px !important;
+        align-items: flex-end !important;
+      }
+      .buying-window-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 90vh !important;
+        border-radius: 16px 16px 0 0 !important;
+        overflow-x: hidden !important;
+      }
+      .buying-window-body {
+        padding: 16px 12px 24px !important;
+        gap: 12px !important;
+        grid-template-columns: 1fr !important;
+      }
+      .buying-window-media {
+        max-height: 200px !important;
+      }
+      .buying-window-img {
+        max-height: 200px !important;
+      }
+      .buying-window-title {
+        font-size: 1.15rem !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+      }
+      .buying-window-sizes {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 6px !important;
+      }
+      .bw-size-btn {
+        width: 100% !important;
+        padding: 9px 2px !important;
+        text-align: center !important;
+        font-size: 0.8rem !important;
+      }
+      .buying-window-actions {
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+      .bw-qty-box {
+        width: 100% !important;
+        justify-content: space-between !important;
+        height: 42px !important;
+      }
+      .bw-add-btn {
+        width: 100% !important;
+        height: 44px !important;
+      }
+      .bw-checkout-btn,
+      .bw-buy-now-btn {
+        width: 100% !important;
+        white-space: normal !important;
+        text-align: center !important;
+        font-size: 0.82rem !important;
+        padding: 12px 8px !important;
+      }
+    }
+
+    /* INFINITE RUNNING TICKER KEYFRAMES */
+    .brutalist-white-ticker {
+      width: 100% !important;
+      max-width: 100vw !important;
+      overflow: hidden !important;
+      white-space: nowrap !important;
+      background: #ffffff !important;
+      color: #000000 !important;
+      padding: 12px 0 !important;
+      border-top: 2px solid #000000 !important;
+      border-bottom: 2px solid #000000 !important;
+      box-sizing: border-box !important;
+      user-select: none !important;
+    }
+    .brutalist-white-ticker-track {
+      display: flex !important;
+      width: max-content !important;
+      animation: marqueeLoopForever 22s linear infinite !important;
+      will-change: transform !important;
+    }
+    .brutalist-ticker-group {
+      display: flex !important;
+      align-items: center !important;
+      flex-shrink: 0 !important;
+    }
+    @keyframes marqueeLoopForever {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
 </head>
 <body class="vimi-store template-index">
 
