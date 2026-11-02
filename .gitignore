@@ -1,0 +1,25 @@
+# Shopify theme archive (upload to Shopify Admin > Online Store > Themes)
+vimi-theme.zip
+
+# Raw redundant hoodies folder (images are tracked in assets/hoodies/)
+hoodies/
+
+# Standalone preview copy (index.html is the GitHub Pages live entrypoint)
+preview-store.html
+
+# Shopify 2.0 backend Liquid directories (not used by GitHub Pages)
+layout/
+sections/
+snippets/
+templates/
+config/
+locales/
+
+# Python helper scripts
+*.py
+__pycache__/
+
+# OS & Environment
+.DS_Store
+Thumbs.db
+.gemini/
