@@ -2347,9 +2347,7 @@ img, svg {
     margin-right: auto;
     justify-content: center;
   }
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2731,22 +2729,12 @@ html, body {
 
 /* TABLET USERS: 2 CARDS PER ROW */
 @media (min-width: 600px) and (max-width: 899px) {
-  .products-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
-    width: 100% !important;
-  }
+  
 }
 
 /* PHONE USERS: 2 COMPACT LUXURY CARDS PER ROW WITH ZERO OVERFLOW */
 @media (max-width: 599px) {
-  .products-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px !important;
-    width: 100% !important;
-  }
+  
   .product-card {
     border-radius: 8px !important;
   }
@@ -3095,13 +3083,27 @@ body {
   body {
     padding-top: 56px !important;
   }
+  
+  .header-container {
+    height: 56px !important;
+  }
+}
+
+/* ==========================================================================
+   BULLETPROOF 4-COLUMN GRID FOR PC USERS (NO EXCEPTIONS ON SCREENS > 580px)
+   ========================================================================== */
+.products-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+  width: 100% !important;
+}
+
+@media (max-width: 580px) {
   .products-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
     width: 100% !important;
-  }
-  .header-container {
-    height: 56px !important;
   }
 }
