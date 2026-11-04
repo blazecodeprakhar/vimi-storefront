@@ -3455,3 +3455,297 @@ body {
     right: 8px !important;
   }
 }
+
+
+/* =========================================================
+   ViMi MOBILE HERO (phones only, max-width: 767px)
+   PC layout is untouched: this block is display:none on desktop.
+   ========================================================= */
+:root {
+  --bg: #050505;
+  --card: #0e0e0e;
+  --line: #1f1f1f;
+  --text: #fff;
+  --muted: #9a9a9a;
+  --accent: #ff4d1a;
+}
+
+/* ---- show ONLY on phones ---- */
+.vimi-m-hero {
+  display: none;
+}
+@media (max-width: 767px) {
+  .vimi-desktop-hero {
+    display: none !important;
+  }
+  .vimi-m-hero {
+    display: block !important;
+    position: relative;
+    padding: 16px 16px 110px;
+    overflow: hidden;
+    background: radial-gradient(120% 60% at 50% 0%, #1a1a1a 0%, var(--bg) 60%);
+  }
+}
+
+/* top marquee */
+.m-marquee {
+  margin: -16px -16px 18px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 10px;
+  letter-spacing: .14em;
+  font-weight: 700;
+  color: #cfcfcf;
+  text-transform: uppercase;
+}
+.m-marquee div {
+  display: inline-block;
+  padding: 9px 0;
+  animation: mq 22s linear infinite;
+}
+.m-marquee span {
+  margin: 0 18px;
+}
+@keyframes mq {
+  to { transform: translateX(-50%); }
+}
+
+/* pills */
+.m-pills {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.m-pill {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 7px 11px;
+  border-radius: 99px;
+  border: 1px solid #2a2a2a;
+  background: #111;
+  color: #fff;
+}
+.m-pill.hot {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+/* headline */
+.m-h1 {
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: .95;
+  letter-spacing: -.02em;
+  font-size: clamp(34px, 10.5vw, 46px);
+  text-shadow: 0 0 28px rgba(255, 255, 255, .18);
+  margin-bottom: 6px;
+}
+.m-h1 em {
+  font-family: 'Playfair Display', serif;
+  font-style: normal;
+  color: #d8d8d8;
+}
+.m-sub {
+  margin: 14px 0 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 34ch;
+}
+
+/* chips: swipe sideways, never wrap into a messy block */
+.m-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0 -16px 20px;
+  padding: 0 16px;
+  scrollbar-width: none;
+}
+.m-chips::-webkit-scrollbar {
+  display: none;
+}
+.m-chip {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0b0b0b;
+  color: #ddd;
+}
+
+/* product card with swipe carousel */
+.m-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+}
+.m-tag {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  z-index: 3;
+  background: #fff;
+  color: #000;
+  font-size: 9.5px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  padding: 6px 10px;
+  transform: rotate(-3deg);
+}
+.m-badge {
+  position: absolute;
+  top: -16px;
+  right: -6px;
+  z-index: 3;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff7a45, var(--accent) 60%, #b52a00);
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 20px;
+  color: #fff;
+  box-shadow: 0 0 30px rgba(255, 77, 26, .55);
+  animation: mPulse 2.4s ease-in-out infinite;
+}
+@keyframes mPulse {
+  50% { box-shadow: 0 0 44px rgba(255, 77, 26, .85); }
+}
+.m-slides {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  border-radius: 14px;
+  scrollbar-width: none;
+}
+.m-slides::-webkit-scrollbar {
+  display: none;
+}
+.m-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  aspect-ratio: 4/5;
+  background-color: #1b1b1b;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.m-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin: 10px 0 12px;
+}
+.m-dots i {
+  width: 18px;
+  height: 3px;
+  border-radius: 3px;
+  background: #333;
+  transition: .25s;
+}
+.m-dots i.on {
+  width: 34px;
+  background: #fff;
+}
+.m-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0 4px 4px;
+}
+.m-name {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #fff;
+}
+.m-meta {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.m-price {
+  text-align: right;
+  font-weight: 900;
+  font-size: 20px;
+  color: #fff;
+  white-space: nowrap;
+}
+.m-price s {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* rating row */
+.m-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.m-rating b {
+  color: #fff;
+}
+
+/* STICKY thumb-zone CTA bar (the biggest mobile conversion win) */
+.m-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: rgba(5, 5, 5, .92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--line);
+}
+.m-btn {
+  flex: 1;
+  height: 52px;
+  border-radius: 12px;
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.m-btn.primary {
+  flex: 1.4;
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+.m-btn:active {
+  transform: scale(.97);
+}
+@media (min-width: 768px) {
+  .m-cta {
+    display: none !important;
+  }
+}

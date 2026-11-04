@@ -518,3 +518,47 @@ window.addEventListener('scroll', () => {
     }
   }
 }, { passive: true });
+
+
+// =========================================================
+// ViMi Dedicated Mobile Hero Carousel Synchronizer
+// =========================================================
+(function(){
+  function initMobileHero(){
+    var s = document.getElementById('mSlides');
+    var d = document.querySelectorAll('#mDots i');
+    var nameEl = document.getElementById('mName');
+    var metaEl = document.getElementById('mMeta');
+    var priceEl = document.getElementById('mPrice');
+    var buyBtn = document.getElementById('MobileHeroQuickBuy');
+    var addBtn = document.getElementById('MobileHeroAddBag');
+    if(!s) return;
+    s.addEventListener('scroll', function(){
+      var i = Math.round(s.scrollLeft / s.clientWidth);
+      d.forEach(function(x, k){ x.classList.toggle('on', k === i); });
+      var slides = s.querySelectorAll('.m-slide');
+      if(slides[i]){
+        var sl = slides[i];
+        if(nameEl) nameEl.textContent = sl.dataset.title;
+        if(metaEl) metaEl.textContent = sl.dataset.meta;
+        if(priceEl) priceEl.innerHTML = sl.dataset.price + '<s>' + sl.dataset.compare + '</s>';
+        if(buyBtn) {
+          buyBtn.dataset.productTitle = sl.dataset.title;
+          buyBtn.dataset.productPrice = sl.dataset.rawPrice;
+          buyBtn.dataset.productCompare = sl.dataset.rawCompare;
+          buyBtn.dataset.productImage = sl.dataset.img;
+        }
+        if(addBtn) {
+          addBtn.dataset.productTitle = sl.dataset.title;
+          addBtn.dataset.productPrice = sl.dataset.rawPrice;
+          addBtn.dataset.productImage = sl.dataset.img;
+        }
+      }
+    }, { passive: true });
+  }
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileHero);
+  } else {
+    initMobileHero();
+  }
+})();
