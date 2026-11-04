@@ -310,6 +310,7 @@
     
     <!-- Redesigned Hero Section with Auto-Switching Showcase -->
     <section class="hero-section" id="hero-banner">
+      <div class="hero-bg-watermark">ARCHIVE 450</div>
       <div class="container hero-container">
         
         <!-- Left Hero Content -->
@@ -417,16 +418,23 @@
               <div class="hero-slide" data-index="4" data-title='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' data-price="2699" data-compare="3899" data-badge="CYBER DRIP" data-image="vimi-hoodie-06.jpg">
                 <img src="./assets/hoodies/vimi-hoodie-06.jpg" alt="ViMi Cyber Drift" class="hero-slide-img" onerror="this.src='./assets/vimi-hoodie-06.jpg';">
               </div>
+                          <!-- Stage Arrow Controls -->
+              <button type="button" class="hero-stage-arrow hero-stage-arrow--prev" id="HeroStagePrev" aria-label="Previous hoodie">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button type="button" class="hero-stage-arrow hero-stage-arrow--next" id="HeroStageNext" aria-label="Next hoodie">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
             </div>
 
             <!-- Navigation Dots & Counter -->
             <div class="hero-slider-nav">
               <div class="hero-slider-dots">
-                <button type="button" class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
-                <button type="button" class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
-                <button type="button" class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
-                <button type="button" class="hero-dot" data-slide="3" aria-label="Slide 4"></button>
-                <button type="button" class="hero-dot" data-slide="4" aria-label="Slide 5"></button>
+                <button type="button" class="hero-dot active" data-slide="0" aria-label="Slide 1"><span class="hero-dot-fill"></span></button>
+                <button type="button" class="hero-dot" data-slide="1" aria-label="Slide 2"><span class="hero-dot-fill"></span></button>
+                <button type="button" class="hero-dot" data-slide="2" aria-label="Slide 3"><span class="hero-dot-fill"></span></button>
+                <button type="button" class="hero-dot" data-slide="3" aria-label="Slide 4"><span class="hero-dot-fill"></span></button>
+                <button type="button" class="hero-dot" data-slide="4" aria-label="Slide 5"><span class="hero-dot-fill"></span></button>
               </div>
               <div class="hero-slider-counter" id="HeroSliderCounter">01 / 05</div>
             </div>

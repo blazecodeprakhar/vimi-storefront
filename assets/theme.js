@@ -92,8 +92,29 @@ document.addEventListener('DOMContentLoaded', () => {
     return index === 0 ? 6500 : 3000;
   }
 
+  function resetProgressBars() {
+    heroDots.forEach((dot, i) => {
+      dot.classList.remove('running');
+      const fill = dot.querySelector('.hero-dot-fill');
+      if (fill) {
+        fill.style.animation = 'none';
+        void fill.offsetWidth; // trigger reflow
+      }
+    });
+    const activeDot = heroDots[currentSlide];
+    if (activeDot) {
+      activeDot.classList.add('running');
+      const fill = activeDot.querySelector('.hero-dot-fill');
+      if (fill) {
+        const dur = getSlideDuration(currentSlide);
+        fill.style.animation = `heroDotProgress ${dur}ms linear forwards`;
+      }
+    }
+  }
+
   function scheduleNextSlide() {
     if (heroInterval) clearTimeout(heroInterval);
+    resetProgressBars();
     const duration = getSlideDuration(currentSlide);
     heroInterval = setTimeout(() => {
       setHeroSlide(currentSlide + 1);
@@ -111,6 +132,72 @@ document.addEventListener('DOMContentLoaded', () => {
   if (heroSlides.length) {
     scheduleNextSlide();
   }
+  // 1. Prev / Next Stage Arrows
+  const btnPrev = document.getElementById('HeroStagePrev');
+  const btnNext = document.getElementById('HeroStageNext');
+  if (btnPrev) {
+    btnPrev.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setHeroSlide(currentSlide - 1);
+      scheduleNextSlide();
+    });
+  }
+  if (btnNext) {
+    btnNext.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setHeroSlide(currentSlide + 1);
+      scheduleNextSlide();
+    });
+  }
+
+  // 2. Mobile Touch Swipe Gestures
+  const stageEl = document.getElementById('HeroSliderStage');
+  if (stageEl) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    stageEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    stageEl.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      // Only trigger horizontal swipe if movement is predominantly horizontal
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          setHeroSlide(currentSlide + 1);
+        } else {
+          setHeroSlide(currentSlide - 1);
+        }
+        scheduleNextSlide();
+      }
+    }, { passive: true });
+  }
+
+  // 3. Desktop 3D Interactive Card Tilt on Mouse Move
+  const showcaseCard = document.getElementById('HeroShowcase');
+  if (showcaseCard && window.innerWidth > 992) {
+    showcaseCard.addEventListener('mousemove', (e) => {
+      const rect = showcaseCard.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const rotateX = (-y / (rect.height / 2)) * 5;
+      const rotateY = (x / (rect.width / 2)) * 5;
+      showcaseCard.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px)`;
+    });
+    showcaseCard.addEventListener('mouseleave', () => {
+      showcaseCard.style.transform = '';
+    });
+  }
+
 
   // =========================================================================
   // LIVE DROP COUNTDOWN TIMER

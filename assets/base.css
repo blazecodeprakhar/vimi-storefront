@@ -3346,3 +3346,112 @@ body {
     100% { transform: rotate(360deg); }
   }
 }
+
+
+/* ==========================================================================
+   ADVANCED HERO INTERACTIONS: STORY PROGRESS BARS, ARROWS & 3D PARALLAX
+   ========================================================================== */
+
+/* Translucent Stage Arrows */
+.hero-stage-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.6;
+}
+
+.hero-card-showcase:hover .hero-stage-arrow {
+  opacity: 0.95;
+}
+
+.hero-stage-arrow:hover {
+  background: rgba(255, 255, 255, 0.95);
+  color: #000000;
+  border-color: #ffffff;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.hero-stage-arrow--prev {
+  left: 12px;
+}
+
+.hero-stage-arrow--next {
+  right: 12px;
+}
+
+/* Story-Style Progress Bar on Dots */
+.hero-dot {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.18) !important;
+}
+
+.hero-dot-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: #ffffff;
+  border-radius: inherit;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes heroDotProgress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Giant Architectural Background Watermark for PC */
+.hero-bg-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Syne', sans-serif;
+  font-size: 16vw;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.025);
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .hero-bg-watermark {
+    display: none !important;
+  }
+  .hero-stage-arrow {
+    width: 32px !important;
+    height: 32px !important;
+    opacity: 0.85 !important;
+  }
+  .hero-stage-arrow--prev {
+    left: 8px !important;
+  }
+  .hero-stage-arrow--next {
+    right: 8px !important;
+  }
+}
