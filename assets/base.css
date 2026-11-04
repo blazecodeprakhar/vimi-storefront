@@ -634,6 +634,7 @@ img, svg {
 }
 
 /* Hero Carousel Stage */
+/* Hero Carousel Stage with Zooming, Unzooming & Sliding */
 .hero-slider-stage {
   position: relative;
   width: 100%;
@@ -642,6 +643,7 @@ img, svg {
   overflow: hidden;
   margin-bottom: 16px;
   background: #000000;
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85);
 }
 
 .hero-slide {
@@ -649,20 +651,62 @@ img, svg {
   inset: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: scale(1.04);
+  overflow: hidden;
+  transform: translateX(35px) scale(0.97);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.85s;
+  pointer-events: none;
 }
 
 .hero-slide.active {
   opacity: 1;
   visibility: visible;
-  transform: scale(1);
+  transform: translateX(0) scale(1);
+  z-index: 2;
+  pointer-events: auto;
 }
 
-.hero-slide-img {
+.hero-slide .hero-slide-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Dynamic Cinematic Zoom-In & Zoom-Out Animations on Active Slides */
+.hero-slide.active:nth-child(odd) .hero-slide-img {
+  animation: heroCinematicZoomIn 7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.hero-slide.active:nth-child(even) .hero-slide-img {
+  animation: heroCinematicZoomOut 7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes heroCinematicZoomIn {
+  0% {
+    transform: scale(1.0);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes heroCinematicZoomOut {
+  0% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1.0);
+  }
 }
 
 /* Slider Pagination Dots & Thumbnails */
@@ -2799,62 +2843,126 @@ html, body {
   }
 }
 
-/* MOBILE RESPONSIVE UI ERROR FIXES (PREVENT HORIZONTAL SCROLL) */
+/* MOBILE RESPONSIVE UI: VISUAL-FIRST CINEMATIC HERO (ZERO PRICES, BOLD MINIMAL TEXT) */
 @media (max-width: 768px) {
   .hero-section {
     overflow: hidden !important;
-    padding: 30px 0 !important;
+    padding: 24px 0 32px !important;
   }
   .hero-container {
     padding: 0 14px !important;
     overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 16px !important;
+  }
+  .hero-content {
+    text-align: center !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+  .hero-badge-row {
+    justify-content: center !important;
+    margin-bottom: 8px !important;
+    gap: 6px !important;
   }
   .hero-title {
-    font-size: 1.85rem !important;
-    line-height: 1.15 !important;
-    letter-spacing: -0.02em !important;
+    font-size: 2.15rem !important;
+    line-height: 1.08 !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em !important;
     word-break: break-word !important;
     overflow-wrap: break-word !important;
+    margin-bottom: 0 !important;
   }
+  /* Phone Users: HIDE cluttered descriptions, chips, social proof & above-slider CTA */
   .hero-description {
-    font-size: 0.85rem !important;
-    line-height: 1.4 !important;
+    display: none !important;
   }
   .hero-features-chips {
-    gap: 5px !important;
+    display: none !important;
   }
-  .hero-features-chips .chip {
-    font-size: 0.68rem !important;
-    padding: 4px 8px !important;
+  .hero-social-proof {
+    display: none !important;
   }
   .hero-cta-group {
+    display: none !important;
+  }
+  
+  /* Phone Visual Showcase: Cinematic Full Width with Zooming / Unzooming */
+  .hero-visual {
+    width: 100% !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+  }
+  .hero-card-showcase {
+    background: #090909 !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 18px !important;
+    padding: 12px 12px 16px !important;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 255, 255, 0.05) !important;
+  }
+  .hero-slider-stage {
+    aspect-ratio: 4 / 4.8 !important;
+    border-radius: 14px !important;
+    margin-bottom: 12px !important;
+  }
+  .signature-drop-tag {
+    top: 8px !important;
+    left: 8px !important;
+    transform: none !important;
+    font-size: 0.62rem !important;
+    padding: 4px 8px !important;
+  }
+  .circular-stamp-badge {
+    top: 8px !important;
+    right: 8px !important;
+    width: 54px !important;
+    height: 54px !important;
+  }
+  .stamp-center-num {
+    font-size: 0.85rem !important;
+  }
+
+  /* Phone Users: ZERO PRICES IN HERO SECTION (ONLY BOLD TITLES) */
+  .showcase-row {
     flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
+    gap: 4px !important;
+  }
+  .showcase-name {
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+  }
+  .showcase-sub {
+    font-size: 0.74rem !important;
+    text-align: center !important;
+    color: #a1a1aa !important;
+    margin-top: 2px !important;
+  }
+  .showcase-price-box {
+    display: none !important; /* STRICTLY NO PRICES FOR PHONE USERS */
+  }
+  .showcase-actions-grid {
+    grid-template-columns: 1fr !important;
     width: 100% !important;
     gap: 8px !important;
   }
-  .hero-cta-group .btn {
+  .showcase-actions-grid .btn-quick-add {
+    display: none !important; /* Keep 1 bold primary action */
+  }
+  .showcase-actions-grid .btn {
     width: 100% !important;
+    padding: 13px 16px !important;
+    font-size: 0.84rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
     justify-content: center !important;
-    text-align: center !important;
-    padding: 12px 16px !important;
-    font-size: 0.8rem !important;
-  }
-  /* Prevent badges from hanging outside hero card */
-  .signature-drop-tag {
-    top: 6px !important;
-    left: 6px !important;
-    transform: none !important;
-    font-size: 0.62rem !important;
-    padding: 3px 8px !important;
-  }
-  .circular-stamp-badge {
-    top: 6px !important;
-    right: 6px !important;
-    width: 60px !important;
-    height: 60px !important;
-  }
-  .stamp-center-num {
-    font-size: 0.95rem !important;
   }
   .header-container {
     padding: 0 12px !important;
@@ -3124,5 +3232,117 @@ body {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 8px !important;
     width: 100% !important;
+  }
+}
+
+
+/* ==========================================================================
+   PREMIUM PC HERO SECTION TYPOGRAPHY & ANIMATION ENHANCEMENTS
+   ========================================================================== */
+@media (min-width: 769px) {
+  .hero-section {
+    padding: 70px 0 95px !important;
+    background: radial-gradient(circle at 75% 35%, rgba(255, 255, 255, 0.06) 0%, rgba(5, 5, 5, 0) 65%), #050505 !important;
+  }
+
+  .hero-container {
+    gap: 60px !important;
+  }
+
+  .crazzzy-metal {
+    background: linear-gradient(
+      115deg,
+      #ffffff 0%,
+      #ffffff 25%,
+      #8e8e93 40%,
+      #ffffff 55%,
+      #f5f5f7 70%,
+      #71717a 100%
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: chromeShimmer 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    text-shadow: 0 0 35px rgba(255, 255, 255, 0.22);
+    letter-spacing: -0.01em;
+  }
+
+  @keyframes chromeShimmer {
+    0%, 25% {
+      background-position: 200% 0;
+    }
+    65%, 100% {
+      background-position: -100% 0;
+    }
+  }
+
+  .hero-title {
+    font-size: 4.1rem !important;
+    line-height: 1.02 !important;
+    letter-spacing: -1.6px !important;
+  }
+
+  .hero-card-showcase {
+    background: #090909 !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 22px !important;
+    padding: 24px !important;
+    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, border-color 0.5s ease !important;
+  }
+
+  .hero-card-showcase:hover {
+    transform: translateY(-8px) scale(1.008) !important;
+    border-color: rgba(255, 255, 255, 0.32) !important;
+    box-shadow: 0 45px 110px rgba(0, 0, 0, 0.98), 0 0 70px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+  }
+
+  .hero-dot {
+    height: 5px !important;
+    border-radius: 3px !important;
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease !important;
+  }
+
+  .hero-dot.active {
+    width: 42px !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6) !important;
+  }
+
+  /* Shimmer sweep on primary CTA button */
+  .hero-cta-group .btn--primary {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-cta-group .btn--primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: skewX(-20deg);
+    animation: btnShimmerSweep 5s infinite;
+  }
+
+  @keyframes btnShimmerSweep {
+    0%, 70% {
+      left: -100%;
+    }
+    100% {
+      left: 200%;
+    }
+  }
+
+  /* Circular Neon Stamp rotation animation */
+  .circular-stamp-badge {
+    animation: stampRotateInfinite 24s linear infinite;
+  }
+
+  @keyframes stampRotateInfinite {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 }
