@@ -2,7 +2,7 @@
 vimi-theme.zip
 
 # Raw redundant hoodies folder (images are tracked in assets/hoodies/)
-hoodies/
+/hoodies/
 
 # Standalone preview copy (index.html is the GitHub Pages live entrypoint)
 preview-store.html
