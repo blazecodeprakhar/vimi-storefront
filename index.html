@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>
+    window.vimiImgLoaded = function(img) {
+      if (!img) return;
+      img.classList.add('vimi-loaded');
+      var wrapper = img.closest ? img.closest('.product-card__media-wrapper, .m-slide, .hero-slide, .buying-window-media') : null;
+      if (wrapper) wrapper.classList.add('vimi-shimmer-off');
+    };
+  </script>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
   <title>ViMi | Dedicated Heavyweight Hoodie Brand (Official Store)</title>
@@ -9,6 +18,127 @@
   <link href="https://fonts.googleapis.com/css2family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/base.css">
   <style id="vimi-critical-pc-and-mobile-overrides">
+
+    /* ==========================================================================
+       ViMi ULTRA-LUXURY IMAGE LOADING, SHIMMER & BLUR-UP SYSTEM (CRITICAL)
+       ========================================================================== */
+    @keyframes vimiLuxuryShimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    @keyframes vimiWatermarkPulse {
+      0%, 100% { opacity: 0.16; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.32; transform: translate(-50%, -50%) scale(1.02); }
+    }
+    .product-card__media-wrapper,
+    .buying-window-media,
+    .m-slide {
+      position: relative;
+      background-color: #0c0c0c;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .product-card__media-wrapper::before,
+    .buying-window-media::before,
+    .m-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        115deg,
+        #090909 20%,
+        #171717 38%,
+        #252525 50%,
+        #171717 62%,
+        #090909 80%
+      );
+      background-size: 250% 100%;
+      animation: vimiLuxuryShimmer 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .product-card__media-wrapper::after,
+    .buying-window-media::after {
+      content: 'ViMi ARCHIVE';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: #ffffff;
+      text-transform: uppercase;
+      z-index: 1;
+      pointer-events: none;
+      animation: vimiWatermarkPulse 2.4s ease-in-out infinite;
+      transition: opacity 0.4s ease-out;
+    }
+    .product-card__media-wrapper.vimi-shimmer-off::before,
+    .product-card__media-wrapper.vimi-shimmer-off::after,
+    .buying-window-media.vimi-shimmer-off::before,
+    .buying-window-media.vimi-shimmer-off::after,
+    .m-slide.vimi-shimmer-off::before {
+      opacity: 0 !important;
+      animation: none !important;
+      pointer-events: none;
+    }
+    .product-card__image {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      filter: blur(14px) brightness(0.85);
+      transform: scale(1.05);
+      will-change: opacity, filter, transform;
+      transition: 
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .product-card__image.vimi-loaded,
+    .m-slide-img.vimi-loaded,
+    .hero-slide-img.vimi-loaded,
+    .buying-window-img.vimi-loaded {
+      opacity: 1 !important;
+      filter: blur(0px) brightness(1) !important;
+      transform: scale(1) !important;
+    }
+    .product-card:hover .product-card__image.vimi-loaded {
+      transform: scale(1.055) !important;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .m-slide-img {
+      opacity: 0;
+      filter: blur(14px) brightness(0.85);
+      transform: scale(1.05);
+      will-change: opacity, filter, transform;
+      transition: 
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-slide-img {
+      opacity: 0;
+      filter: blur(14px);
+      will-change: opacity, filter, transform;
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .buying-window-img {
+      opacity: 0;
+      filter: blur(14px) brightness(0.85);
+      transform: scale(1.04);
+      will-change: opacity, filter, transform;
+      transition: 
+        opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     html, body {
       max-width: 100vw !important;
       overflow-x: hidden !important;
@@ -700,23 +830,23 @@
             <div class="hero-slider-stage" id="HeroSliderStage">
               <!-- Slide 1: ViMi HEAVYWEIIIGHT Essential (Waits longer than other slides) -->
               <div class="hero-slide active" data-index="0" data-title='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' data-price="1999" data-compare="2999" data-badge="SIGNATURE DROP #01" data-image="vimi-hoodie-21.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-21.jpg" alt='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' class="hero-slide-img" onerror="this.src='./assets/vimi-hoodie-21.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-21.jpg" alt='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' class="hero-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-21.jpg';">
               </div>
               <!-- Slide 2: Vintage Heather -->
               <div class="hero-slide" data-index="1" data-title='ViMi "CRAZZZY ARCHIVE" Vintage Heather Boxy Hoodie' data-price="2199" data-compare="3199" data-badge="VINTAGE GRAIL" data-image="vimi-hoodie-02.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-02.jpg" alt="ViMi Archive" class="hero-slide-img" onerror="this.src='./assets/vimi-hoodie-02.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-02.jpg" alt="ViMi Archive" class="hero-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-02.jpg';">
               </div>
               <!-- Slide 3: Nocturne Acid Wash -->
               <div class="hero-slide" data-index="2" data-title='ViMi "NOCTURNE" Acid Washed Drop-Shoulder Hoodie' data-price="2399" data-compare="3499" data-badge="ACID WASH" data-image="vimi-hoodie-03.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-03.jpg" alt="ViMi Nocturne" class="hero-slide-img" onerror="this.src='./assets/vimi-hoodie-03.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-03.jpg" alt="ViMi Nocturne" class="hero-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-03.jpg';">
               </div>
               <!-- Slide 4: Phantom Black -->
               <div class="hero-slide" data-index="3" data-title='ViMi "GRAIL DRIP" Phantom Black 450 GSM Hoodie' data-price="1999" data-compare="2999" data-badge="BESTSELLER" data-image="vimi-hoodie-04.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-04.jpg" alt="ViMi Grail Drip" class="hero-slide-img" onerror="this.src='./assets/vimi-hoodie-04.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-04.jpg" alt="ViMi Grail Drip" class="hero-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-04.jpg';">
               </div>
               <!-- Slide 5: Japanese Kanji Cyber -->
               <div class="hero-slide" data-index="4" data-title='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' data-price="2699" data-compare="3899" data-badge="CYBER DRIP" data-image="vimi-hoodie-06.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-06.jpg" alt="ViMi Cyber Drift" class="hero-slide-img" onerror="this.src='./assets/vimi-hoodie-06.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-06.jpg" alt="ViMi Cyber Drift" class="hero-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-06.jpg';">
               </div>
                           <!-- Stage Arrow Controls -->
               <button type="button" class="hero-stage-arrow hero-stage-arrow--prev" id="HeroStagePrev" aria-label="Previous hoodie">
@@ -806,19 +936,19 @@
     <div class="m-badge">01</div>
         <div class="m-slides" id="mSlides">
       <div class="m-slide" style="background-image: url('./assets/hoodies/vimi-hoodie-21.jpg');" data-title='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' data-meta="Obsidian Black • 450 GSM • Boxy Cut" data-price="₹1,999" data-compare="₹2,999" data-img="vimi-hoodie-21.jpg" data-raw-price="1999" data-raw-compare="2999">
-        <img src="./assets/hoodies/vimi-hoodie-21.jpg" alt='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' class="m-slide-img" onerror="this.src='./assets/vimi-hoodie-21.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-21.jpg';">
+        <img src="./assets/hoodies/vimi-hoodie-21.jpg" alt='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' class="m-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-21.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-21.jpg';">
       </div>
       <div class="m-slide" style="background-image: url('./assets/hoodies/vimi-hoodie-02.jpg');" data-title='ViMi "CRAZZZY ARCHIVE" Vintage Heather Boxy Hoodie' data-meta="Vintage Heather • 450 GSM • Boxy AF" data-price="₹2,199" data-compare="₹3,199" data-img="vimi-hoodie-02.jpg" data-raw-price="2199" data-raw-compare="3199">
-        <img src="./assets/hoodies/vimi-hoodie-02.jpg" alt='ViMi "CRAZZZY ARCHIVE" Vintage Heather Boxy Hoodie' class="m-slide-img" onerror="this.src='./assets/vimi-hoodie-02.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-02.jpg';">
+        <img src="./assets/hoodies/vimi-hoodie-02.jpg" alt='ViMi "CRAZZZY ARCHIVE" Vintage Heather Boxy Hoodie' class="m-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-02.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-02.jpg';">
       </div>
       <div class="m-slide" style="background-image: url('./assets/hoodies/vimi-hoodie-03.jpg');" data-title='ViMi "NOCTURNE" Acid Washed Drop-Shoulder Hoodie' data-meta="Acid Washed Charcoal • 450 GSM • Distressed" data-price="₹2,399" data-compare="₹3,499" data-img="vimi-hoodie-03.jpg" data-raw-price="2399" data-raw-compare="3499">
-        <img src="./assets/hoodies/vimi-hoodie-03.jpg" alt='ViMi "NOCTURNE" Acid Washed Drop-Shoulder Hoodie' class="m-slide-img" onerror="this.src='./assets/vimi-hoodie-03.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-03.jpg';">
+        <img src="./assets/hoodies/vimi-hoodie-03.jpg" alt='ViMi "NOCTURNE" Acid Washed Drop-Shoulder Hoodie' class="m-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-03.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-03.jpg';">
       </div>
       <div class="m-slide" style="background-image: url('./assets/hoodies/vimi-hoodie-04.jpg');" data-title='ViMi "GRAIL DRIP" Phantom Black 450 GSM Hoodie' data-meta="Phantom Black • 450 GSM Terry • Deep Hood" data-price="₹1,999" data-compare="₹2,999" data-img="vimi-hoodie-04.jpg" data-raw-price="1999" data-raw-compare="2999">
-        <img src="./assets/hoodies/vimi-hoodie-04.jpg" alt='ViMi "GRAIL DRIP" Phantom Black 450 GSM Hoodie' class="m-slide-img" onerror="this.src='./assets/vimi-hoodie-04.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-04.jpg';">
+        <img src="./assets/hoodies/vimi-hoodie-04.jpg" alt='ViMi "GRAIL DRIP" Phantom Black 450 GSM Hoodie' class="m-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-04.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-04.jpg';">
       </div>
       <div class="m-slide" style="background-image: url('./assets/hoodies/vimi-hoodie-06.jpg');" data-title='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' data-meta="Cyber Graphic • 450 GSM • Boxy Drop" data-price="₹2,699" data-compare="₹3,899" data-img="vimi-hoodie-06.jpg" data-raw-price="2699" data-raw-compare="3899">
-        <img src="./assets/hoodies/vimi-hoodie-06.jpg" alt='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' class="m-slide-img" onerror="this.src='./assets/vimi-hoodie-06.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-06.jpg';">
+        <img src="./assets/hoodies/vimi-hoodie-06.jpg" alt='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' class="m-slide-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-06.jpg'; if(!this.complete) this.src='assets/vimi-hoodie-06.jpg';">
       </div>
     </div>
     <div class="m-dots" id="mDots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
@@ -985,7 +1115,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">CRAZZZY GRAIL</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "SKELETON SPINE" Rhinestone Graphic Heavyweight Hoodie' data-product-price="2499" data-product-compare="3699" data-product-badge="CRAZZZY GRAIL" data-product-image="vimi-hoodie-01.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-01.jpg" alt='ViMi "SKELETON SPINE" Rhinestone Graphic Heavyweight Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-01.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-01.jpg" alt='ViMi "SKELETON SPINE" Rhinestone Graphic Heavyweight Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-01.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "SKELETON SPINE" Rhinestone Graphic Heavyweight Hoodie' data-product-price="2499" data-product-compare="3699" data-product-badge="CRAZZZY GRAIL" data-product-image="vimi-hoodie-01.jpg">⚡ Quick Buy</button>
@@ -1014,7 +1144,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">BESTSELLER</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "CRAZZZY ARCHIVE" Vintage Heather Boxy Hoodie' data-product-price="2199" data-product-compare="3199" data-product-badge="BESTSELLER" data-product-image="vimi-hoodie-02.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-02.jpg" alt='ViMi "CRAZZZY ARCHIVE" Vintage Heather Boxy Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-02.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-02.jpg" alt='ViMi "CRAZZZY ARCHIVE" Vintage Heather Boxy Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-02.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "CRAZZZY ARCHIVE" Vintage Heather Boxy Hoodie' data-product-price="2199" data-product-compare="3199" data-product-badge="BESTSELLER" data-product-image="vimi-hoodie-02.jpg">⚡ Quick Buy</button>
@@ -1043,7 +1173,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">ACID WASH</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "NOCTURNE" Acid Washed Drop-Shoulder Hoodie' data-product-price="2399" data-product-compare="3499" data-product-badge="ACID WASH" data-product-image="vimi-hoodie-03.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-03.jpg" alt='ViMi "NOCTURNE" Acid Washed Drop-Shoulder Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-03.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-03.jpg" alt='ViMi "NOCTURNE" Acid Washed Drop-Shoulder Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-03.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "NOCTURNE" Acid Washed Drop-Shoulder Hoodie' data-product-price="2399" data-product-compare="3499" data-product-badge="ACID WASH" data-product-image="vimi-hoodie-03.jpg">⚡ Quick Buy</button>
@@ -1072,7 +1202,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">450 GSM</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "GRAIL DRIP" Phantom Black 450 GSM Hoodie' data-product-price="1999" data-product-compare="2999" data-product-badge="450 GSM" data-product-image="vimi-hoodie-04.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-04.jpg" alt='ViMi "GRAIL DRIP" Phantom Black 450 GSM Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-04.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-04.jpg" alt='ViMi "GRAIL DRIP" Phantom Black 450 GSM Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-04.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "GRAIL DRIP" Phantom Black 450 GSM Hoodie' data-product-price="1999" data-product-compare="2999" data-product-badge="450 GSM" data-product-image="vimi-hoodie-04.jpg">⚡ Quick Buy</button>
@@ -1101,7 +1231,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">RAW CUT</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "DARK OBSIDIAN" Raw Hem Heavyweight Hoodie' data-product-price="1899" data-product-compare="2699" data-product-badge="RAW CUT" data-product-image="vimi-hoodie-05.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-05.jpg" alt='ViMi "DARK OBSIDIAN" Raw Hem Heavyweight Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-05.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-05.jpg" alt='ViMi "DARK OBSIDIAN" Raw Hem Heavyweight Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-05.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "DARK OBSIDIAN" Raw Hem Heavyweight Hoodie' data-product-price="1899" data-product-compare="2699" data-product-badge="RAW CUT" data-product-image="vimi-hoodie-05.jpg">⚡ Quick Buy</button>
@@ -1130,7 +1260,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">CYBER DROP</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' data-product-price="2699" data-product-compare="3899" data-product-badge="CYBER DROP" data-product-image="vimi-hoodie-06.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-06.jpg" alt='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-06.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-06.jpg" alt='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-06.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "CYBER DRIFT" Japanese Kanji Graphic Hoodie' data-product-price="2699" data-product-compare="3899" data-product-badge="CYBER DROP" data-product-image="vimi-hoodie-06.jpg">⚡ Quick Buy</button>
@@ -1159,7 +1289,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">STAND-UP HOOD</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "MONOLITH" Minimalist Stand-Up Hood Pullover' data-product-price="2299" data-product-compare="3299" data-product-badge="STAND-UP HOOD" data-product-image="vimi-hoodie-07.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-07.jpg" alt='ViMi "MONOLITH" Minimalist Stand-Up Hood Pullover' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-07.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-07.jpg" alt='ViMi "MONOLITH" Minimalist Stand-Up Hood Pullover' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-07.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "MONOLITH" Minimalist Stand-Up Hood Pullover' data-product-price="2299" data-product-compare="3299" data-product-badge="STAND-UP HOOD" data-product-image="vimi-hoodie-07.jpg">⚡ Quick Buy</button>
@@ -1188,7 +1318,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">PIGMENT DYE</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "EARTH DUST" Mud Washed Heavy Terry Hoodie' data-product-price="2099" data-product-compare="2999" data-product-badge="PIGMENT DYE" data-product-image="vimi-hoodie-08.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-08.jpg" alt='ViMi "EARTH DUST" Mud Washed Heavy Terry Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-08.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-08.jpg" alt='ViMi "EARTH DUST" Mud Washed Heavy Terry Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-08.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "EARTH DUST" Mud Washed Heavy Terry Hoodie' data-product-price="2099" data-product-compare="2999" data-product-badge="PIGMENT DYE" data-product-image="vimi-hoodie-08.jpg">⚡ Quick Buy</button>
@@ -1217,7 +1347,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">LIMITED GRAIL</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "CRIMSON BLOOD" Acid Washed Oversized Hoodie' data-product-price="2599" data-product-compare="3799" data-product-badge="LIMITED GRAIL" data-product-image="vimi-hoodie-09.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-09.jpg" alt='ViMi "CRIMSON BLOOD" Acid Washed Oversized Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-09.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-09.jpg" alt='ViMi "CRIMSON BLOOD" Acid Washed Oversized Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-09.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "CRIMSON BLOOD" Acid Washed Oversized Hoodie' data-product-price="2599" data-product-compare="3799" data-product-badge="LIMITED GRAIL" data-product-image="vimi-hoodie-09.jpg">⚡ Quick Buy</button>
@@ -1246,7 +1376,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">450 GSM TERRY</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "GHOST WHITE" High-Density French Terry Hoodie' data-product-price="2799" data-product-compare="3999" data-product-badge="450 GSM TERRY" data-product-image="vimi-hoodie-10.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-10.jpg" alt='ViMi "GHOST WHITE" High-Density French Terry Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-10.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-10.jpg" alt='ViMi "GHOST WHITE" High-Density French Terry Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-10.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "GHOST WHITE" High-Density French Terry Hoodie' data-product-price="2799" data-product-compare="3999" data-product-badge="450 GSM TERRY" data-product-image="vimi-hoodie-10.jpg">⚡ Quick Buy</button>
@@ -1275,7 +1405,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">3D EMBROIDERY</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "SYNDICATE" 3D Puff Embroidery Boxy Hoodie' data-product-price="2399" data-product-compare="3399" data-product-badge="3D EMBROIDERY" data-product-image="vimi-hoodie-11.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-11.jpg" alt='ViMi "SYNDICATE" 3D Puff Embroidery Boxy Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-11.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-11.jpg" alt='ViMi "SYNDICATE" 3D Puff Embroidery Boxy Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-11.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "SYNDICATE" 3D Puff Embroidery Boxy Hoodie' data-product-price="2399" data-product-compare="3399" data-product-badge="3D EMBROIDERY" data-product-image="vimi-hoodie-11.jpg">⚡ Quick Buy</button>
@@ -1304,7 +1434,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">DISTRESSED</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "IRON COBALT" Distressed Street Pullover' data-product-price="2499" data-product-compare="3599" data-product-badge="DISTRESSED" data-product-image="vimi-hoodie-12.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-12.jpg" alt='ViMi "IRON COBALT" Distressed Street Pullover' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-12.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-12.jpg" alt='ViMi "IRON COBALT" Distressed Street Pullover' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-12.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "IRON COBALT" Distressed Street Pullover' data-product-price="2499" data-product-compare="3599" data-product-badge="DISTRESSED" data-product-image="vimi-hoodie-12.jpg">⚡ Quick Buy</button>
@@ -1333,7 +1463,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">MINERAL DYE</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "CONCRETE JUNGLE" Mineral Washed Hoodie' data-product-price="1999" data-product-compare="2899" data-product-badge="MINERAL DYE" data-product-image="vimi-hoodie-13.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-13.jpg" alt='ViMi "CONCRETE JUNGLE" Mineral Washed Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-13.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-13.jpg" alt='ViMi "CONCRETE JUNGLE" Mineral Washed Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-13.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "CONCRETE JUNGLE" Mineral Washed Hoodie' data-product-price="1999" data-product-compare="2899" data-product-badge="MINERAL DYE" data-product-image="vimi-hoodie-13.jpg">⚡ Quick Buy</button>
@@ -1362,7 +1492,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">BOXY AF</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "VINTAGE MAUVE" Heavyweight Drop Shoulder' data-product-price="2299" data-product-compare="3299" data-product-badge="BOXY AF" data-product-image="vimi-hoodie-14.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-14.jpg" alt='ViMi "VINTAGE MAUVE" Heavyweight Drop Shoulder' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-14.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-14.jpg" alt='ViMi "VINTAGE MAUVE" Heavyweight Drop Shoulder' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-14.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "VINTAGE MAUVE" Heavyweight Drop Shoulder' data-product-price="2299" data-product-compare="3299" data-product-badge="BOXY AF" data-product-image="vimi-hoodie-14.jpg">⚡ Quick Buy</button>
@@ -1391,7 +1521,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">STREET WEAR</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "SHADOW BOX" Double-Stitched Street Hoodie' data-product-price="1799" data-product-compare="2499" data-product-badge="STREET WEAR" data-product-image="vimi-hoodie-15.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-15.jpg" alt='ViMi "SHADOW BOX" Double-Stitched Street Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-15.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-15.jpg" alt='ViMi "SHADOW BOX" Double-Stitched Street Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-15.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "SHADOW BOX" Double-Stitched Street Hoodie' data-product-price="1799" data-product-compare="2499" data-product-badge="STREET WEAR" data-product-image="vimi-hoodie-15.jpg">⚡ Quick Buy</button>
@@ -1420,7 +1550,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">PRE-SHRUNK</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "SMOKE GREY" 450 GSM Loopback French Terry' data-product-price="2199" data-product-compare="3199" data-product-badge="PRE-SHRUNK" data-product-image="vimi-hoodie-16.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-16.jpg" alt='ViMi "SMOKE GREY" 450 GSM Loopback French Terry' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-16.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-16.jpg" alt='ViMi "SMOKE GREY" 450 GSM Loopback French Terry' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-16.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "SMOKE GREY" 450 GSM Loopback French Terry' data-product-price="2199" data-product-compare="3199" data-product-badge="PRE-SHRUNK" data-product-image="vimi-hoodie-16.jpg">⚡ Quick Buy</button>
@@ -1449,7 +1579,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">EXCLUSIVE</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "SILVER CHROME" Minimal Monogram Hoodie' data-product-price="2899" data-product-compare="4199" data-product-badge="EXCLUSIVE" data-product-image="vimi-hoodie-17.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-17.jpg" alt='ViMi "SILVER CHROME" Minimal Monogram Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-17.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-17.jpg" alt='ViMi "SILVER CHROME" Minimal Monogram Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-17.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "SILVER CHROME" Minimal Monogram Hoodie' data-product-price="2899" data-product-compare="4199" data-product-badge="EXCLUSIVE" data-product-image="vimi-hoodie-17.jpg">⚡ Quick Buy</button>
@@ -1478,7 +1608,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">EARTH TONE</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "DESERT KHAKI" Boxy Fit Heavyweight Hoodie' data-product-price="1899" data-product-compare="2699" data-product-badge="EARTH TONE" data-product-image="vimi-hoodie-18.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-18.jpg" alt='ViMi "DESERT KHAKI" Boxy Fit Heavyweight Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-18.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-18.jpg" alt='ViMi "DESERT KHAKI" Boxy Fit Heavyweight Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-18.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "DESERT KHAKI" Boxy Fit Heavyweight Hoodie' data-product-price="1899" data-product-compare="2699" data-product-badge="EARTH TONE" data-product-image="vimi-hoodie-18.jpg">⚡ Quick Buy</button>
@@ -1507,7 +1637,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">HEAVY ARMOR</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "MIDNIGHT VOID" Pure Obsidian Armor Hoodie' data-product-price="2999" data-product-compare="4499" data-product-badge="HEAVY ARMOR" data-product-image="vimi-hoodie-19.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-19.jpg" alt='ViMi "MIDNIGHT VOID" Pure Obsidian Armor Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-19.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-19.jpg" alt='ViMi "MIDNIGHT VOID" Pure Obsidian Armor Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-19.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "MIDNIGHT VOID" Pure Obsidian Armor Hoodie' data-product-price="2999" data-product-compare="4499" data-product-badge="HEAVY ARMOR" data-product-image="vimi-hoodie-19.jpg">⚡ Quick Buy</button>
@@ -1536,7 +1666,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">BACK PRINT</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "GRAIL REAPER" Back-Print Oversized Hoodie' data-product-price="2699" data-product-compare="3899" data-product-badge="BACK PRINT" data-product-image="vimi-hoodie-20.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-20.jpg" alt='ViMi "GRAIL REAPER" Back-Print Oversized Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-20.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-20.jpg" alt='ViMi "GRAIL REAPER" Back-Print Oversized Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-20.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "GRAIL REAPER" Back-Print Oversized Hoodie' data-product-price="2699" data-product-compare="3899" data-product-badge="BACK PRINT" data-product-image="vimi-hoodie-20.jpg">⚡ Quick Buy</button>
@@ -1565,7 +1695,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">ESSENTIAL</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' data-product-price="1999" data-product-compare="2899" data-product-badge="ESSENTIAL" data-product-image="vimi-hoodie-21.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-21.jpg" alt='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-21.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-21.jpg" alt='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-21.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "HEAVYWEIIIGHT" Essential Drop-Shoulder Hoodie' data-product-price="1999" data-product-compare="2899" data-product-badge="ESSENTIAL" data-product-image="vimi-hoodie-21.jpg">⚡ Quick Buy</button>
@@ -1594,7 +1724,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">VINTAGE</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "SLATE WASH" Vintage Distressed Terry Hoodie' data-product-price="2399" data-product-compare="3399" data-product-badge="VINTAGE" data-product-image="vimi-hoodie-22.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-22.jpg" alt='ViMi "SLATE WASH" Vintage Distressed Terry Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-22.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-22.jpg" alt='ViMi "SLATE WASH" Vintage Distressed Terry Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-22.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "SLATE WASH" Vintage Distressed Terry Hoodie' data-product-price="2399" data-product-compare="3399" data-product-badge="VINTAGE" data-product-image="vimi-hoodie-22.jpg">⚡ Quick Buy</button>
@@ -1623,7 +1753,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">GRAPHIC</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "STREET ANARCHY" Multi-Graphic Boxy Pullover' data-product-price="2599" data-product-compare="3699" data-product-badge="GRAPHIC" data-product-image="vimi-hoodie-23.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-23.jpg" alt='ViMi "STREET ANARCHY" Multi-Graphic Boxy Pullover' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-23.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-23.jpg" alt='ViMi "STREET ANARCHY" Multi-Graphic Boxy Pullover' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-23.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "STREET ANARCHY" Multi-Graphic Boxy Pullover' data-product-price="2599" data-product-compare="3699" data-product-badge="GRAPHIC" data-product-image="vimi-hoodie-23.jpg">⚡ Quick Buy</button>
@@ -1652,7 +1782,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">HEATHER TERRY</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "CARBON FIBER" Dark Heather Oversized Hoodie' data-product-price="1899" data-product-compare="2699" data-product-badge="HEATHER TERRY" data-product-image="vimi-hoodie-24.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-24.jpg" alt='ViMi "CARBON FIBER" Dark Heather Oversized Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-24.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-24.jpg" alt='ViMi "CARBON FIBER" Dark Heather Oversized Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-24.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "CARBON FIBER" Dark Heather Oversized Hoodie' data-product-price="1899" data-product-compare="2699" data-product-badge="HEATHER TERRY" data-product-image="vimi-hoodie-24.jpg">⚡ Quick Buy</button>
@@ -1681,7 +1811,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">NO CAP</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "NO CAP" Heavy French Terry Raw Cut Hoodie' data-product-price="2199" data-product-compare="3099" data-product-badge="NO CAP" data-product-image="vimi-hoodie-25.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-25.jpg" alt='ViMi "NO CAP" Heavy French Terry Raw Cut Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-25.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-25.jpg" alt='ViMi "NO CAP" Heavy French Terry Raw Cut Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-25.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "NO CAP" Heavy French Terry Raw Cut Hoodie' data-product-price="2199" data-product-compare="3099" data-product-badge="NO CAP" data-product-image="vimi-hoodie-25.jpg">⚡ Quick Buy</button>
@@ -1710,7 +1840,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">MINERAL DYE</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "STORM BLUE" Mineral Pigment Dye Hoodie' data-product-price="2499" data-product-compare="3599" data-product-badge="MINERAL DYE" data-product-image="vimi-hoodie-26.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-26.jpg" alt='ViMi "STORM BLUE" Mineral Pigment Dye Hoodie' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-26.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-26.jpg" alt='ViMi "STORM BLUE" Mineral Pigment Dye Hoodie' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-26.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "STORM BLUE" Mineral Pigment Dye Hoodie' data-product-price="2499" data-product-compare="3599" data-product-badge="MINERAL DYE" data-product-image="vimi-hoodie-26.jpg">⚡ Quick Buy</button>
@@ -1739,7 +1869,7 @@
             <div class="product-card__media-wrapper">
               <span class="product-card__badge">500 GSM GRAIL</span>
               <a href="#" class="open-buying-window" data-product-title='ViMi "ULTIMATE GRAIL" 500 GSM Limited Edition Drop' data-product-price="3299" data-product-compare="4999" data-product-badge="500 GSM GRAIL" data-product-image="vimi-hoodie-27.jpg">
-                <img src="./assets/hoodies/vimi-hoodie-27.jpg" alt='ViMi "ULTIMATE GRAIL" 500 GSM Limited Edition Drop' class="product-card__image" onerror="this.src='./assets/vimi-hoodie-27.jpg';">
+                <img src="./assets/hoodies/vimi-hoodie-27.jpg" alt='ViMi "ULTIMATE GRAIL" 500 GSM Limited Edition Drop' class="product-card__image" loading="lazy" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-27.jpg';">
               </a>
               <div class="product-card__actions">
                 <button type="button" class="btn-quick-buy open-buying-window" data-product-title='ViMi "ULTIMATE GRAIL" 500 GSM Limited Edition Drop' data-product-price="3299" data-product-compare="4999" data-product-badge="500 GSM GRAIL" data-product-image="vimi-hoodie-27.jpg">⚡ Quick Buy</button>
@@ -2078,7 +2208,7 @@
       <div class="buying-window-body">
         <div class="buying-window-media">
           <div class="buying-window-badge" id="BuyingWindowBadge">CRAZZZY GRAIL</div>
-          <img src="./assets/hoodies/vimi-hoodie-01.jpg" alt="ViMi Hoodie" id="BuyingWindowImage" class="buying-window-img" onerror="this.src='./assets/vimi-hoodie-01.jpg';">
+          <img src="./assets/hoodies/vimi-hoodie-01.jpg" alt="ViMi Hoodie" id="BuyingWindowImage" class="buying-window-img" onload="vimiImgLoaded(this);" onerror="this.src='./assets/vimi-hoodie-01.jpg';">
         </div>
 
         <div class="buying-window-info">

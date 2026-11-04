@@ -307,11 +307,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (bwImage) {
+      bwImage.classList.remove('vimi-loaded');
+      const bwWrapper = bwImage.closest('.buying-window-media');
+      if (bwWrapper) bwWrapper.classList.remove('vimi-shimmer-off');
+      
       const imgPath = data.image.includes('/') ? data.image : `./assets/hoodies/${data.image}`;
       bwImage.src = imgPath;
+      bwImage.onload = function() {
+        if (typeof window.vimiImgLoaded === 'function') window.vimiImgLoaded(this);
+      };
       bwImage.onerror = function() {
         this.src = `./assets/${data.image}`;
+        if (typeof window.vimiImgLoaded === 'function') window.vimiImgLoaded(this);
       };
+      if (bwImage.complete && bwImage.naturalWidth > 0) {
+        if (typeof window.vimiImgLoaded === 'function') window.vimiImgLoaded(bwImage);
+      }
     }
 
     document.querySelectorAll('.bw-size-btn').forEach(btn => {
@@ -562,3 +573,41 @@ window.addEventListener('scroll', () => {
     initMobileHero();
   }
 })();
+
+/* ==========================================================================
+   ViMi GLOBAL IMAGE LOADER & SHIMMER ORCHESTRATOR
+   Ensures instantaneous smooth blur-up and metallic shimmer dismissals
+   ========================================================================== */
+window.vimiImgLoaded = function(img) {
+  if (!img) return;
+  img.classList.add('vimi-loaded');
+  const wrapper = img.closest('.product-card__media-wrapper, .m-slide, .hero-slide, .buying-window-media');
+  if (wrapper) {
+    wrapper.classList.add('vimi-shimmer-off');
+  }
+};
+
+function initVimiGlobalImageLoader() {
+  const selector = '.product-card__image, .m-slide-img, .hero-slide-img, .buying-window-img';
+  const imgs = document.querySelectorAll(selector);
+  
+  imgs.forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      window.vimiImgLoaded(img);
+    } else {
+      img.addEventListener('load', function() {
+        window.vimiImgLoaded(this);
+      }, { once: true });
+      img.addEventListener('error', function() {
+        // Safety timeout so broken/fallback states still reveal cleanly
+        setTimeout(() => window.vimiImgLoaded(this), 300);
+      }, { once: true });
+    }
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initVimiGlobalImageLoader);
+} else {
+  initVimiGlobalImageLoader();
+}

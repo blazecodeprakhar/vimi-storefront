@@ -1123,10 +1123,91 @@ img, svg {
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
 }
 
+/* ==========================================================================
+   ViMi ULTRA-LUXURY IMAGE LOADING, SHIMMER & BLUR-UP SYSTEM
+   ========================================================================== */
+@keyframes vimiLuxuryShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes vimiWatermarkPulse {
+  0%, 100% {
+    opacity: 0.16;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+}
+
 .product-card__media-wrapper {
   position: relative;
-  background-color: #000000;
+  background-color: #0c0c0c;
   overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+/* Metallic dark-monochrome skeleton shimmer */
+.product-card__media-wrapper::before,
+.buying-window-media::before,
+.m-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: linear-gradient(
+    115deg,
+    #090909 20%,
+    #171717 38%,
+    #252525 50%,
+    #171717 62%,
+    #090909 80%
+  );
+  background-size: 250% 100%;
+  animation: vimiLuxuryShimmer 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Luxury brand watermark stamp inside placeholder */
+.product-card__media-wrapper::after,
+.buying-window-media::after {
+  content: 'ViMi ARCHIVE';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Syne', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #ffffff;
+  text-transform: uppercase;
+  z-index: 1;
+  pointer-events: none;
+  animation: vimiWatermarkPulse 2.4s ease-in-out infinite;
+  transition: opacity 0.4s ease-out;
+}
+
+/* Fade out shimmer and watermark once image is loaded */
+.product-card__media-wrapper.vimi-shimmer-off::before,
+.product-card__media-wrapper.vimi-shimmer-off::after,
+.buying-window-media.vimi-shimmer-off::before,
+.buying-window-media.vimi-shimmer-off::after,
+.m-slide.vimi-shimmer-off::before {
+  opacity: 0 !important;
+  animation: none !important;
+  pointer-events: none;
 }
 
 .product-card__badge {
@@ -1144,15 +1225,33 @@ img, svg {
   z-index: 5;
 }
 
+/* Target image starts blurred and smoothly reveals */
 .product-card__image {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+  opacity: 0;
+  filter: blur(14px) brightness(0.85);
+  transform: scale(1.05);
+  will-change: opacity, filter, transform;
+  transition: 
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.product-card:hover .product-card__image {
-  transform: scale(1.05);
+/* Instant smooth reveal when image is loaded */
+.product-card__image.vimi-loaded {
+  opacity: 1;
+  filter: blur(0px) brightness(1);
+  transform: scale(1);
+}
+
+/* Smooth hover zoom applied strictly after loading */
+.product-card:hover .product-card__image.vimi-loaded {
+  transform: scale(1.055);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-card__actions {
@@ -3775,4 +3874,44 @@ body {
   object-fit: cover;
   display: block;
   border-radius: 14px;
+  opacity: 0;
+  filter: blur(14px) brightness(0.85);
+  transform: scale(1.05);
+  will-change: opacity, filter, transform;
+  transition: 
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.m-slide-img.vimi-loaded {
+  opacity: 1;
+  filter: blur(0px) brightness(1);
+  transform: scale(1);
+}
+
+.hero-slide-img {
+  opacity: 0;
+  filter: blur(14px);
+  will-change: opacity, filter, transform;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-slide-img.vimi-loaded {
+  opacity: 1;
+  filter: blur(0px);
+}
+
+.buying-window-img {
+  opacity: 0;
+  filter: blur(14px) brightness(0.85);
+  transform: scale(1.04);
+  will-change: opacity, filter, transform;
+  transition: 
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.buying-window-img.vimi-loaded {
+  opacity: 1;
+  filter: blur(0px) brightness(1);
+  transform: scale(1);
 }
