@@ -3457,6 +3457,9 @@ body {
 }
 
 
+
+
+
 /* =========================================================
    ViMi MOBILE HERO (phones only, max-width: 767px)
    PC layout is untouched: this block is display:none on desktop.
@@ -3467,7 +3470,7 @@ body {
   --line: #1f1f1f;
   --text: #fff;
   --muted: #9a9a9a;
-  --accent: #ff4d1a;
+  --accent: #ff4d1a; /* the orange "01" badge colour */
 }
 
 /* ---- show ONLY on phones ---- */
@@ -3481,7 +3484,7 @@ body {
   .vimi-m-hero {
     display: block !important;
     position: relative;
-    padding: 16px 16px 110px;
+    padding: 20px 16px 110px;
     overflow: hidden;
     background: radial-gradient(120% 60% at 50% 0%, #1a1a1a 0%, var(--bg) 60%);
   }
@@ -3489,7 +3492,7 @@ body {
 
 /* top marquee */
 .m-marquee {
-  margin: -16px -16px 18px;
+  margin: -20px -16px 18px;
   border-bottom: 1px solid var(--line);
   overflow: hidden;
   white-space: nowrap;
@@ -3545,6 +3548,7 @@ body {
   font-size: clamp(34px, 10.5vw, 46px);
   text-shadow: 0 0 28px rgba(255, 255, 255, .18);
   margin-bottom: 6px;
+  color: #fff;
 }
 .m-h1 em {
   font-family: 'Playfair Display', serif;
@@ -3619,9 +3623,9 @@ body {
   font-size: 20px;
   color: #fff;
   box-shadow: 0 0 30px rgba(255, 77, 26, .55);
-  animation: mPulse 2.4s ease-in-out infinite;
+  animation: pulse 2.4s ease-in-out infinite;
 }
-@keyframes mPulse {
+@keyframes pulse {
   50% { box-shadow: 0 0 44px rgba(255, 77, 26, .85); }
 }
 .m-slides {
@@ -3643,6 +3647,10 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.m-slide:nth-child(1) { background-image: url('./assets/hoodies/vimi-hoodie-03.jpg'); }
+.m-slide:nth-child(2) { background-image: url('./assets/hoodies/vimi-hoodie-01.jpg'); }
+.m-slide:nth-child(3) { background-image: url('./assets/hoodies/vimi-hoodie-02.jpg'); }
+
 .m-dots {
   display: flex;
   gap: 6px;
@@ -3715,18 +3723,16 @@ body {
   display: flex;
   gap: 10px;
   padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px));
-  background: rgba(5, 5, 5, .92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(5, 5, 5, .88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-top: 1px solid var(--line);
 }
 .m-btn {
   flex: 1;
   height: 52px;
   border-radius: 12px;
-  font-family: 'Archivo', system-ui, sans-serif;
-  font-weight: 800;
-  font-size: 12px;
+  font: 800 12px 'Archivo', system-ui, sans-serif;
   letter-spacing: .1em;
   text-transform: uppercase;
   border: 1px solid #333;
