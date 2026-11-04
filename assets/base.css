@@ -3647,9 +3647,9 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.m-slide:nth-child(1) { background-image: url('./assets/hoodies/vimi-hoodie-03.jpg'); }
-.m-slide:nth-child(2) { background-image: url('./assets/hoodies/vimi-hoodie-01.jpg'); }
-.m-slide:nth-child(3) { background-image: url('./assets/hoodies/vimi-hoodie-02.jpg'); }
+
+
+
 
 .m-dots {
   display: flex;
@@ -3754,4 +3754,25 @@ body {
   .m-cta {
     display: none !important;
   }
+}
+
+
+.m-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  aspect-ratio: 4 / 5;
+  background-color: #1b1b1b;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+}
+.m-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 14px;
 }
